@@ -170,23 +170,23 @@ func HandleReport(w http.ResponseWriter, r *http.Request) { //nolint
 		io.WriteString(w, errorMsg)
 		log.Info("Using input error")
 	} else {
-		log.Info("Using Cookie Check")
-		c, err := r.Cookie("JSESSIONID")
+		// log.Info("Using Cookie Check")
+		// c, err := r.Cookie("JSESSIONID")
 
-		if err != nil {
-			w.WriteHeader(http.StatusForbidden)
-			io.WriteString(w, HttpErrors[http.StatusForbidden])
+		// if err != nil {
+		// 	w.WriteHeader(http.StatusForbidden)
+		// 	io.WriteString(w, HttpErrors[http.StatusForbidden])
 
-			return
+		// 	return
 
-		} else if c.Value != tokenString {
-			w.WriteHeader(http.StatusUnauthorized)
-			io.WriteString(w, HttpErrors[http.StatusUnauthorized])
+		// } else if c.Value != tokenString {
+		// 	w.WriteHeader(http.StatusUnauthorized)
+		// 	io.WriteString(w, HttpErrors[http.StatusUnauthorized])
 
-			return
-		} else {
-			http.ServeFile(w, r, "./files/zix.csv")
-		}
+		// 	return
+		// } else {
+		http.ServeFile(w, r, "./files/zix.csv")
+		// }
 
 	}
 

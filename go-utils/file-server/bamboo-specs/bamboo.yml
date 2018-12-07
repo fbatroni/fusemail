@@ -1,0 +1,26 @@
+project:
+  key: TMPLTS
+  plan:
+    key: FAGT
+    name: fm-app-go-template
+# List of plan's stages
+stages:
+  #List of stage's jobs
+  - jobs:
+    # Scripts which are going to be executed within this job
+    - scripts:
+        # a hack to make VERSION endpoint work within container when built from bamboo
+        - sed -i -e "s/^VERSION=.*/VERSION=$(git describe --tags --always)/g" Makefile
+        - make docker-test-clean
+        - make docker-test
+      # Job's test parsers.
+      testParsers:
+        - type: junit
+          testResults: '**/test-result/*.xml'
+  - jobs:
+    - scripts:
+        # a hack to make VERSION endpoint work within container when built from bamboo
+        - sed -i -e "s/^VERSION=.*/VERSION=$(git describe --tags --always)/g" Makefile
+        - make deploy-clean
+        - make deploy
+        - make clean

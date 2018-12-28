@@ -1,0 +1,26 @@
+project:
+  key: TMPLTS
+  plan:
+    key: FAGT
+    name: em-service-usage-importer
+# List of plan's stages
+stages:
+  #List of stage's jobs
+  - jobs:
+    # Scripts which are going to be executed within this job
+    - scripts:
+        # a hack to make VERSION endpoint work within container when built from bamboo
+        - sed -i -e "s/^VERSION=.*/VERSION=$(git describe --tags --always)/g" Makefile
+        - make docker-test
+        - rm -rf bamboo-test; mkdir bamboo-test; cp test-result/* bamboo-test/
+        - make docker-test-clean
+      # Job's test parsers.
+      testParsers:
+        - type: junit
+          testResults: '**/bamboo-test/*.xml'
+  - jobs:
+    - scripts:
+        # a hack to make VERSION endpoint work within container when built from bamboo
+        - sed -i -e "s/^VERSION=.*/VERSION=$(git describe --tags --always)/g" Makefile
+        - make clean
+        - make deploy && make clean

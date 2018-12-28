@@ -1,0 +1,18 @@
+displayName: Demo
+post:
+  description: Demo.
+  body: 
+    application/json:
+          example: !include examples/req_demo.json
+  responses: 
+    200:
+      description: OK
+      body: 
+        application/json:
+          example: !include examples/resp_ok.json
+    400:
+    500:
+      description: Failed
+      body: 
+        application/json:
+          example: !include examples/resp_error.json

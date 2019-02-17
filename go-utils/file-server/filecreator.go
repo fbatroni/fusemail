@@ -101,11 +101,11 @@ func createRandomDateAsString() string {
 }
 
 func randonNumberOfLine() int {
-	return rand.Intn(10000000) + 1
+	return rand.Intn(45000) + 15000
 }
 
 func randonDiffDomains() int {
-	return rand.Intn(1000) + 10
+	return rand.Intn(150) + 50
 }
 
 func randonDomains(numberOfDomains int) int {
